@@ -2,18 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { Project } from '@/data/portfolioData';
-import { 
-  X, 
-  Cpu, 
-  Layers, 
-  Terminal, 
-  Code2, 
-  Activity, 
-  Play, 
-  RotateCcw, 
-  CheckCircle2, 
-  ExternalLink, 
-  Copy, 
+import {
+  X,
+  Cpu,
+  Layers,
+  Terminal,
+  Code2,
+  Activity,
+  Play,
+  RotateCcw,
+  CheckCircle2,
+  ExternalLink,
+  Copy,
   Check,
   Zap,
   ArrowRight,
@@ -154,7 +154,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div className="relative w-full max-w-5xl bg-slate-950 border-2 border-cyan-500/40 rounded-2xl shadow-2xl shadow-cyan-950/60 overflow-hidden flex flex-col max-h-[92vh]">
-        
+
         {/* Modal Top Header */}
         <div className="p-4 sm:p-6 bg-slate-900/90 border-b border-slate-800 flex items-start justify-between gap-4">
           <div className="space-y-1">
@@ -187,43 +187,39 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         <div className="flex items-center gap-2 px-6 pt-3 pb-2 bg-slate-900/40 border-b border-slate-800 overflow-x-auto">
           <button
             onClick={() => setActiveTab('architecture')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${
-              activeTab === 'architecture'
+            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${activeTab === 'architecture'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 font-bold'
                 : 'text-slate-400 hover:text-slate-200'
-            }`}
+              }`}
           >
             VIEW ARCHITECTURE
           </button>
           <button
             onClick={() => setActiveTab('simulation')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all whitespace-nowrap ${
-              activeTab === 'simulation'
+            className={`px-4 py-2 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all whitespace-nowrap ${activeTab === 'simulation'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 font-bold'
                 : 'text-slate-400 hover:text-slate-200'
-            }`}
+              }`}
           >
             <Play className="w-3.5 h-3.5 text-emerald-400" />
             <span>LIVE SIMULATION</span>
           </button>
           <button
             onClick={() => setActiveTab('code')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all whitespace-nowrap ${
-              activeTab === 'code'
+            className={`px-4 py-2 rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all whitespace-nowrap ${activeTab === 'code'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 font-bold'
                 : 'text-slate-400 hover:text-slate-200'
-            }`}
+              }`}
           >
             <Code2 className="w-3.5 h-3.5 text-cyan-400" />
             <span>VERILOG RTL CODE</span>
           </button>
           <button
             onClick={() => setActiveTab('specs')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${
-              activeTab === 'specs'
+            className={`px-4 py-2 rounded-lg text-xs font-mono transition-all whitespace-nowrap ${activeTab === 'specs'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 font-bold'
                 : 'text-slate-400 hover:text-slate-200'
-            }`}
+              }`}
           >
             SPECS & RESULTS
           </button>
@@ -231,7 +227,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
         {/* Modal Body Content */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1 text-slate-300">
-          
+
           {/* TAB 1: ARCHITECTURE & SIGNAL FLOW */}
           {activeTab === 'architecture' && (
             <div className="space-y-6">
@@ -369,194 +365,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 </div>
               )}
 
-              {/* SIMULATION 2: SYNCHRONOUS FIFO BUFFER */}
-              {project.simulationType === 'fifo' && (
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
-                  {/* Status Flags */}
-                  <div className="flex items-center justify-between font-mono text-xs pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-3">
-                      <span className="text-slate-400">WRITE PTR: <strong className="text-cyan-400">{fifoWrPtr}</strong></span>
-                      <span className="text-slate-400">READ PTR: <strong className="text-emerald-400">{fifoRdPtr}</strong></span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-0.5 rounded text-[10px] ${isFifoFull ? 'bg-red-950 text-red-400 border border-red-500/40' : 'bg-slate-800 text-slate-500'}`}>
-                        FULL FLAG
-                      </span>
-                      <span className={`px-2 py-0.5 rounded text-[10px] ${isFifoEmpty ? 'bg-amber-950 text-amber-400 border border-amber-500/40' : 'bg-slate-800 text-slate-500'}`}>
-                        EMPTY FLAG
-                      </span>
-                    </div>
-                  </div>
 
-                  {/* FIFO Memory Cells Visualizer */}
-                  <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                    {fifoMem.map((val, idx) => {
-                      const isWriteTarget = idx === fifoWrPtr % 8;
-                      const isReadTarget = idx === fifoRdPtr % 8;
-                      return (
-                        <div
-                          key={idx}
-                          className={`p-3 rounded-xl border text-center font-mono flex flex-col items-center justify-center transition-all ${
-                            val
-                              ? 'bg-cyan-950/60 border-cyan-400/50 text-cyan-300'
-                              : 'bg-slate-950 border-slate-800 text-slate-600'
-                          }`}
-                        >
-                          <span className="text-[9px] text-slate-500 mb-1">ADDR 0x0{idx}</span>
-                          <span className="text-xs font-bold">{val || '0x00'}</span>
-                          <div className="flex gap-1 mt-1 text-[8px]">
-                            {isWriteTarget && <span className="text-cyan-400">WR</span>}
-                            {isReadTarget && <span className="text-emerald-400">RD</span>}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* FIFO Control Actions */}
-                  <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-800">
-                    <input
-                      type="text"
-                      value={fifoInputVal}
-                      onChange={(e) => setFifoInputVal(e.target.value)}
-                      placeholder="0xAA"
-                      className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs font-mono text-white w-24"
-                    />
-                    <button
-                      onClick={handleFifoWrite}
-                      disabled={isFifoFull}
-                      className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-slate-950 font-mono text-xs font-bold transition-colors"
-                    >
-                      WRITE DATA (CLK ↑)
-                    </button>
-                    <button
-                      onClick={handleFifoRead}
-                      disabled={isFifoEmpty}
-                      className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-slate-950 font-mono text-xs font-bold transition-colors"
-                    >
-                      READ DATA (CLK ↑)
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* SIMULATION 3: UART TRANSCEIVER */}
-              {project.simulationType === 'uart' && (
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="text"
-                      maxLength={1}
-                      value={uartByte}
-                      onChange={(e) => setUartByte(e.target.value.toUpperCase())}
-                      className="w-14 text-center px-3 py-2 rounded-xl bg-slate-950 border border-cyan-500/50 text-white font-mono text-lg font-bold"
-                    />
-                    <button
-                      onClick={handleUartSend}
-                      disabled={uartTransmitting}
-                      className="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-slate-950 font-mono text-xs font-bold"
-                    >
-                      {uartTransmitting ? 'TRANSMITTING BITS...' : 'SERIALIZE & TRANSMIT (115200 BAUD)'}
-                    </button>
-                  </div>
-
-                  {/* Serial Bitstream Trace */}
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    <span className="text-[10px] font-mono text-slate-400 block">
-                      TX SERIAL LINE WAVEFORM (START + 8 DATA BITS + STOP):
-                    </span>
-                    <div className="flex items-center gap-1 overflow-x-auto py-2">
-                      {uartBitStream.length > 0 ? (
-                        uartBitStream.map((bit, idx) => (
-                          <div
-                            key={idx}
-                            className={`px-3 py-1.5 rounded text-xs font-mono font-bold ${
-                              bit === 1
-                                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400'
-                                : 'bg-slate-900 text-slate-400 border border-slate-800'
-                            }`}
-                          >
-                            {bit}
-                          </div>
-                        ))
-                      ) : (
-                        <span className="text-xs font-mono text-slate-600">IDLE HIGH (Line = 1)</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* RX Buffer Readout */}
-                  <div className="flex items-center justify-between text-xs font-mono p-3 rounded-lg bg-slate-950 border border-slate-800">
-                    <span className="text-slate-400">RX SHIFT REGISTER BYTE:</span>
-                    <span className="text-emerald-400 font-bold text-sm">
-                      {uartRxReceived ? `"${uartRxReceived}" (0x${uartRxReceived.charCodeAt(0).toString(16).toUpperCase()})` : 'AWAITING FRAME'}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* SIMULATION 4: RAILWAY GATE */}
-              {project.simulationType === 'railway' && (
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6 text-center">
-                  <div className="flex items-center justify-around p-4 rounded-xl bg-slate-950 border border-slate-800">
-                    <div>
-                      <span className="text-xs font-mono text-slate-400 block mb-1">CROSSING GATE STATUS</span>
-                      <span className={`text-sm font-mono font-bold ${railwayGateDown ? 'text-red-400' : 'text-emerald-400'}`}>
-                        {railwayGateDown ? 'GATE LOCKED (0°)' : 'GATE OPEN (90°)'}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-xs font-mono text-slate-400 block mb-1">SAFETY STROBE & BUZZER</span>
-                      <span className={`text-sm font-mono font-bold ${railwayAlarmActive ? 'text-amber-400 animate-pulse' : 'text-slate-600'}`}>
-                        {railwayAlarmActive ? 'ACTIVE (2 Hz STROBE)' : 'INACTIVE'}
-                      </span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleToggleRailway}
-                    className={`px-6 py-3 rounded-xl font-mono text-xs font-bold transition-all shadow-lg ${
-                      railwayTrainApproach
-                        ? 'bg-emerald-600 hover:bg-emerald-500 text-slate-950'
-                        : 'bg-red-600 hover:bg-red-500 text-white shadow-red-600/30'
-                    }`}
-                  >
-                    {railwayTrainApproach ? 'CLEAR TRAIN SENSOR (S2 DEPARTURE)' : 'SIMULATE APPROACHING TRAIN (S1 TRIP)'}
-                  </button>
-                </div>
-              )}
-
-              {/* SIMULATION 5: SMART PARKING */}
-              {project.simulationType === 'parking' && (
-                <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {parkingSlots.map((isOccupied, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleToggleSlot(idx)}
-                        className={`p-4 rounded-xl border text-center font-mono transition-all ${
-                          isOccupied
-                            ? 'bg-red-950/60 border-red-500/50 text-red-300'
-                            : 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300'
-                        }`}
-                      >
-                        <span className="text-[10px] block text-slate-400 mb-1">SLOT #{idx + 1}</span>
-                        <span className="text-xs font-bold">{isOccupied ? 'OCCUPIED' : 'VACANT'}</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono">
-                    <div>
-                      <span className="text-xs text-slate-400 block">7-SEGMENT DISPLAY OUTPUT:</span>
-                      <span className="text-2xl font-bold text-cyan-400">{availableSlots} SPOTS AVAILABLE</span>
-                    </div>
-                    <span className={`px-3 py-1 rounded text-xs font-bold ${availableSlots === 0 ? 'bg-red-950 text-red-400 border border-red-500/40' : 'bg-emerald-950 text-emerald-400'}`}>
-                      {availableSlots === 0 ? 'LOT FULL - GATE CLOSED' : 'ENTRY ALLOWED'}
-                    </span>
-                  </div>
-                </div>
-              )}
 
               {/* SIMULATION 6: WATER LEVEL CONTROLLER */}
               {project.simulationType === 'waterlevel' && (
