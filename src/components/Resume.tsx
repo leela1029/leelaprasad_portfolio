@@ -2,25 +2,25 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
-import { 
-  FileText, 
-  Download, 
-  CheckCircle2, 
-  Cpu, 
-  ExternalLink, 
+import {
+  FileText,
+  Download,
+  CheckCircle2,
+  Cpu,
+  ExternalLink,
   GitBranch,
   Users,
-  Sparkles, 
-  Terminal, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Code2, 
-  GraduationCap, 
-  Briefcase, 
-  Award, 
-  Layers, 
-  Eye, 
+  Sparkles,
+  Terminal,
+  Mail,
+  Phone,
+  MapPin,
+  Code2,
+  GraduationCap,
+  Briefcase,
+  Award,
+  Layers,
+  Eye,
   Maximize2,
   Copy,
   Check,
@@ -34,7 +34,7 @@ export const Resume: React.FC = () => {
   const [copiedContact, setCopiedContact] = useState<string | null>(null);
 
   const engineer = PORTFOLIO_DATA.engineer;
-  const resumePdfPath = '/assets/resumes/LEELA_RESUME.pdf';
+  const resumePdfPath = '/assets/prasad resume.pdf';
 
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -45,7 +45,7 @@ export const Resume: React.FC = () => {
   return (
     <section id="resume" className="py-20 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-cyan-500/20">
           <div>
@@ -57,28 +57,26 @@ export const Resume: React.FC = () => {
               ENGINEERING RESUME & DOSSIER
             </h2>
           </div>
-          
+
           {/* Controls: Mode Switcher & Download */}
           <div className="flex flex-wrap items-center gap-3 mt-4 md:mt-0">
             {/* View Mode Toggle */}
             <div className="flex items-center rounded-xl bg-slate-900 border border-slate-800 p-1">
               <button
                 onClick={() => setViewMode('dossier')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
-                  viewMode === 'dossier'
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${viewMode === 'dossier'
                     ? 'bg-cyan-500 text-slate-950 font-bold shadow-xs'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
               >
                 INTERACTIVE CV
               </button>
               <button
                 onClick={() => setViewMode('pdf')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
-                  viewMode === 'pdf'
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${viewMode === 'pdf'
                     ? 'bg-cyan-500 text-slate-950 font-bold shadow-xs'
                     : 'text-slate-400 hover:text-white'
-                }`}
+                  }`}
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>ORIGINAL PDF</span>
@@ -189,7 +187,7 @@ export const Resume: React.FC = () => {
 
             {/* Dossier 3-Column Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-2">
-              
+
               {/* Col 1: Experience & Internships */}
               <div className="space-y-6">
                 <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono font-bold text-cyan-400">
@@ -385,7 +383,7 @@ export const Resume: React.FC = () => {
         {showFullPdfModal && (
           <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
             <div className="max-w-5xl w-full h-[92vh] rounded-3xl bg-slate-950 border-2 border-cyan-500/50 shadow-2xl shadow-cyan-950 flex flex-col overflow-hidden">
-              
+
               <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900">
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-cyan-400" />
