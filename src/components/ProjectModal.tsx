@@ -29,38 +29,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   const [activeTab, setActiveTab] = useState<'architecture' | 'simulation' | 'code' | 'specs'>('architecture');
   const [copiedCode, setCopiedCode] = useState(false);
 
-  // Simulation States
-  // 1. Traffic Sim
+  // Active Simulation States
+  // 1. Traffic System Sim
   const [trafficEmergency, setTrafficEmergency] = useState(false);
-  const [trafficTimer, setTrafficTimer] = useState(15);
   const [trafficPhase, setTrafficPhase] = useState<'NS_GREEN' | 'YELLOW' | 'EMERGENCY_CORRIDOR'>('NS_GREEN');
 
-  // 2. FIFO Sim
-  const [fifoMem, setFifoMem] = useState<string[]>(['0xAA', '0x55', '', '', '', '', '', '']);
-  const [fifoWrPtr, setFifoWrPtr] = useState(2);
-  const [fifoRdPtr, setFifoRdPtr] = useState(0);
-  const [fifoInputVal, setFifoInputVal] = useState('0x3C');
-
-  // 3. UART Sim
-  const [uartByte, setUartByte] = useState('A');
-  const [uartBitStream, setUartBitStream] = useState<number[]>([]);
-  const [uartTransmitting, setUartTransmitting] = useState(false);
-  const [uartRxReceived, setUartRxReceived] = useState('');
-
-  // 4. Railway Sim
-  const [railwayTrainApproach, setRailwayTrainApproach] = useState(false);
-  const [railwayGateDown, setRailwayGateDown] = useState(false);
-  const [railwayAlarmActive, setRailwayAlarmActive] = useState(false);
-
-  // 5. Parking Sim
-  const [parkingSlots, setParkingSlots] = useState<boolean[]>([true, false, true, false]); // true = occupied
-
-  // 6. Water Level Sim
+  // 2. Water Level Controller Sim
   const [waterLevel, setWaterLevel] = useState<number>(65);
 
-  // 7. Olympics Data Sim
+  // 3. Olympics Data Analytics Sim
   const [olympicYear, setOlympicYear] = useState<number>(2024);
-  const [selectedSport, setSelectedSport] = useState<string>('Athletics');
 
   useEffect(() => {
     if (!project) return;
@@ -75,47 +53,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  // FIFO Simulation Logic
-  const handleFifoWrite = () => {
-    const isFull = fifoWrPtr - fifoRdPtr >= 8;
-    if (isFull) return;
-    const nextMem = [...fifoMem];
-    nextMem[fifoWrPtr % 8] = fifoInputVal || '0xFF';
-    setFifoMem(nextMem);
-    setFifoWrPtr(fifoWrPtr + 1);
-  };
-
-  const handleFifoRead = () => {
-    const isEmpty = fifoWrPtr === fifoRdPtr;
-    if (isEmpty) return;
-    const nextMem = [...fifoMem];
-    nextMem[fifoRdPtr % 8] = '';
-    setFifoMem(nextMem);
-    setFifoRdPtr(fifoRdPtr + 1);
-  };
-
-  const isFifoFull = fifoWrPtr - fifoRdPtr >= 8;
-  const isFifoEmpty = fifoWrPtr === fifoRdPtr;
-
-  // UART Simulation Logic
-  const handleUartSend = () => {
-    if (uartTransmitting) return;
-    setUartTransmitting(true);
-    const charCode = uartByte.charCodeAt(0) || 65;
-    // 8-N-1: Start (0), 8 Data bits (LSB first), Stop (1)
-    const bits: number[] = [0];
-    for (let i = 0; i < 8; i++) {
-      bits.push((charCode >> i) & 1);
-    }
-    bits.push(1);
-    setUartBitStream(bits);
-
-    setTimeout(() => {
-      setUartRxReceived(uartByte);
-      setUartTransmitting(false);
-    }, 1600);
-  };
-
   // Traffic Light Toggle
   const handleTriggerEmergency = () => {
     setTrafficEmergency(true);
@@ -125,31 +62,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       setTrafficPhase('NS_GREEN');
     }, 4500);
   };
-
-  // Railway Sim Toggle
-  const handleToggleRailway = () => {
-    if (railwayTrainApproach) {
-      setRailwayTrainApproach(false);
-      setRailwayGateDown(false);
-      setRailwayAlarmActive(false);
-    } else {
-      setRailwayTrainApproach(true);
-      setRailwayAlarmActive(true);
-      setTimeout(() => {
-        setRailwayGateDown(true);
-      }, 1500);
-    }
-  };
-
-  // Parking Slot Toggle
-  const handleToggleSlot = (index: number) => {
-    const next = [...parkingSlots];
-    next[index] = !next[index];
-    setParkingSlots(next);
-  };
-
-  const occupiedCount = parkingSlots.filter(Boolean).length;
-  const availableSlots = 4 - occupiedCount;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">

@@ -24,7 +24,7 @@ export const Projects: React.FC = () => {
       ? projects
       : projects.filter((p) => p.category === filterCategory);
 
-  const categories = ['all', 'FPGA / Verilog', 'Digital VLSI', 'Embedded / IoT', 'Data Science / AI', 'Digital System'];
+  const categories = ['all', 'FPGA / Verilog', 'Embedded / IoT', 'Data Science / AI'];
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative z-10">
@@ -42,7 +42,7 @@ export const Projects: React.FC = () => {
             </h2>
           </div>
           <p className="text-xs font-mono text-slate-400 mt-2 md:mt-0">
-            5 SYNTHESIZED HARDWARE DESIGNS // VERIFIED RTL
+            {projects.length} CORE ENGINEERING PROJECTS // INTERACTIVE SIMULATIONS
           </p>
         </div>
 
